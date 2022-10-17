@@ -41,6 +41,16 @@
                         <div class="d-flex justify-content-left mx-3 mb-3 mb-lg-4">
                           <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
                         </div>
+                        <% if (validationUser) { %>
+                          <p class="mx-3">
+                              your username or password still blank please fill that
+                          </p>
+                        <% } %>
+                        <% if (isDone) { %>
+                          <p class="mx-3">
+                              your username has been regis, please use another username
+                          </p>
+                        <% } %>
                       </form>
                     </div>
                     <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">

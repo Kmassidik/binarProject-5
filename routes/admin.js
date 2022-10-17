@@ -1,5 +1,5 @@
 const express = require('express');
-const passport = require('passport');
+const passport = require('../middlewares/passportLocal');
 const router = express.Router();
 const admControllers = require('../controllers/admControllers');
 const restrict = require('../middlewares/restrict');

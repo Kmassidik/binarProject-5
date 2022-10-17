@@ -6,8 +6,9 @@ const { checkPassword } = require('../middlewares/passsworHash')
 async function authenticate(username,password,done) {
     try {
         const user = await Users.findOne({ where: {username,username}})
+        if (!user) return done(null,false, {message : "user not found"})
         const isPassword = checkPassword(password, user.password)
-        if (!isPassword) return done(null,false, {message : error.message})
+        if (!isPassword) return done(null,false, {message : "password wrong"})
         return done(null,user)
     } catch (error) {
         return done(null,false, {message : error.message})

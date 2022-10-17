@@ -8,22 +8,23 @@ class adminController {
     
     static async login(req,res){ 
         if (req.user != undefined || req.user != null) return res.redirect('/biodata')
-        res.render('login', { title:"Login" })
+        req.flash()
+        res.render('login', { title:"Login"})
     }
 
     static async signup(req,res){ 
-        res.render('signup/signup', { title:"Sign Up" })
+        res.render('signup/signup', { title:"Sign Up", validationUser:false, isDone:false })
     }
     static async actionSignUp(req,res){
         try {
             const { username, password, role } = req.body
             const users = await Users.findOne({ where:{ username:username}})
             if (username == null || username == undefined || 
-                username == "" || password == null || 
-                password == undefined || password == "") {
-                    return res.send('please input username or password')
+                username == "" || username == " " || password == null || 
+                password == undefined || password == "" || password == " ") {
+                    return res.render('signup/signup',{ title:"Sign Up", validationUser:true, isDone:false})
                 }
-                if (users) return res.send('username has been register')
+                if (users) return res.render('signup/signup',{ title:"Sign Up",validationUser: false,isDone:true})
                 console.log(username,hashPassword(password),role);
                 Users.create({
                     username,
