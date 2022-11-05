@@ -112,7 +112,7 @@ class API {
                 message: 'Succes Create Room'
             })
         } catch (error) {
-            res.json('Internal Server Error')  
+             res.json('Internal Server Error')  
         }
     }
     static async roomId(req,res) {
