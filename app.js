@@ -15,6 +15,10 @@ const apiRouter = require('./routes/api')
 
 const app = express();
 
+//docs API
+const swaggerJson = require('./swagger.json')
+const swaggerUi = require('swagger-ui-express')
+
 app.use(session({
   secret: 'thisismysecrctekey2022',
   resave: false,
@@ -36,6 +40,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', adminRouter);
 app.use('/api/v1', apiRouter);
+// swagger docs
+app.use('/docs',swaggerUi.serve, swaggerUi.setup(swaggerJson))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

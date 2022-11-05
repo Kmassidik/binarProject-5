@@ -1,0 +1,480 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+      "title": "RESTful API - Game Suit 1.0",
+      "description": "This is Documentation RESTful API from binar-challenge-chapter-8, this documentation very useful to more understand about Game Suit program, hope you can understand, thanks.",
+      "termsOfService": "http://swagger.io/terms/",
+      "contact": {
+        "email": "k.massidik@gmail.com"
+      },
+      "license": {
+        "name": "Binar batch 25",
+        "url": "https://www.binaracademy.com/"
+      },
+      "version": "1.0.0"
+    },
+    "externalDocs": {
+      "description": "Find out more about Swagger",
+      "url": "http://swagger.io"
+    },
+    "servers": [
+      {
+        "url": "https://localhost:3000/api/v1"
+      }
+    ],
+    "tags": [
+      {
+        "name": "players",
+        "description": "Everything about players"
+      }
+    ],
+    "paths": {
+        "/login": {
+        "post": {
+          "tags": [
+            "players"
+          ],
+          "summary": "Login user",
+          "description": "This can only be done by the logged in user.",
+          "operationId": "login",
+          "requestBody": {
+            "description": "Login user object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "responses": {
+            "default": {
+              "description": "successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                },
+                "application/xml": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "players"
+          ],
+          "summary": "Logs user into the system",
+          "description": "",
+          "operationId": "findAll",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "query",
+              "description": "The user name for login",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "password",
+              "in": "query",
+              "description": "The password for login in clear text",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "headers": {
+                "X-Rate-Limit": {
+                  "description": "calls per hour allowed by the user",
+                  "schema": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                },
+                "X-Expires-After": {
+                  "description": "date in UTC when token expires",
+                  "schema": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              },
+              "content": {
+                "application/xml": {
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid username/password supplied"
+            }
+          }
+        }
+      },
+      "/players": {
+        "post": {
+          "tags": [
+            "players"
+          ],
+          "summary": "Create user",
+          "description": "This can only be done by the logged in user.",
+          "operationId": "create",
+          "requestBody": {
+            "description": "Created user object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "responses": {
+            "default": {
+              "description": "successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                },
+                "application/xml": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "players"
+          ],
+          "summary": "Logs user into the system",
+          "description": "",
+          "operationId": "findAll",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "query",
+              "description": "The user name for login",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "password",
+              "in": "query",
+              "description": "The password for login in clear text",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "headers": {
+                "X-Rate-Limit": {
+                  "description": "calls per hour allowed by the user",
+                  "schema": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                },
+                "X-Expires-After": {
+                  "description": "date in UTC when token expires",
+                  "schema": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              },
+              "content": {
+                "application/xml": {
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid username/password supplied"
+            }
+          }
+        }
+      },
+      "/players/:id": {
+        "get": {
+          "tags": [
+            "players"
+          ],
+          "summary": "Logs user into the system",
+          "description": "",
+          "operationId": "findById",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "query",
+              "description": "The user name for login",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "password",
+              "in": "query",
+              "description": "The password for login in clear text",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "headers": {
+                "X-Rate-Limit": {
+                  "description": "calls per hour allowed by the user",
+                  "schema": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                },
+                "X-Expires-After": {
+                  "description": "date in UTC when token expires",
+                  "schema": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              },
+              "content": {
+                "application/xml": {
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid username/password supplied"
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "players"
+          ],
+          "summary": "Update user",
+          "description": "This can only be done by the logged in user.",
+          "operationId": "update",
+          "requestBody": {
+            "description": "Update an existent user in the store",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "players"
+          ],
+          "summary": "Delete user",
+          "description": "This can only be done by the logged in user.",
+          "operationId": "delete",
+          "responses": {
+            "400": {
+              "description": "Invalid username supplied"
+            },
+            "404": {
+              "description": "User not found"
+            }
+          }
+        }
+      },
+      "/players/exp/:id": {
+        "post": {
+          "tags": [
+            "players"
+          ],
+          "summary": "increase the amount of exp toplayer.",
+          "description": "This can only be done by the logged in user.",
+          "operationId": "getExperience",
+          "requestBody": {
+            "description": "Created user object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "responses": {
+            "default": {
+              "description": "successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                },
+                "application/xml": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "User": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64",
+              "example": 10
+            },
+            "username": {
+              "type": "string",
+              "example": "admin"
+            },
+            "password": {
+              "type": "string",
+              "example": "binar25"
+            },
+            "email": {
+              "type": "string",
+              "example": "binar25@email.com"
+            },
+            "experience": {
+              "type": "number",
+              "example": 1945
+            },
+            "lvl": {
+              "type": "number",
+              "example": 50
+            }
+          }
+        },
+        "Exp": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64",
+              "example": 10
+            },
+            "experience": {
+              "type": "number",
+              "example": 123
+            }
+          }
+        }
+      },
+      "requestBodies": {
+        "UserArray": {
+          "description": "List of user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
