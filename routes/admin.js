@@ -4,8 +4,9 @@ const router = express.Router();
 const admControllers = require('../controllers/admControllers');
 const restrict = require('../middlewares/restrict');
 
-router.get('/',restrict.isLogin,admControllers.dashboard)
+// router.get('/',restrict.isLogin,admControllers.dashboard)
 
+router.get('/',admControllers.login)
 router.get('/login',admControllers.login)
 router.post('/login', passport.authenticate('local',{
     successRedirect: '/biodata',

@@ -1,7 +1,6 @@
 const { Users, usergamehistories } = require('../models')
 const {hashPassword,checkPassword } = require('../middlewares/passsworHash')
-const { getToken, authenticateToken } = require('../middlewares/authentication')
-const randomString = require('../middlewares/random')
+const { getToken } = require('../middlewares/authentication')
 const jwt_decode = require('jwt-decode')
 
 function gameRules(player, player2) {
@@ -65,17 +64,12 @@ class API {
     static async actionLogin(req,res) {
         try {
             const { username, password } = req.body
+            console.log(username);
             const users = await Users.findOne({ where:{ username:username}})
+            if(username == "") return res.json('please fill username')
+            if(!users) return res.json('wrong username')
             const isPassword = checkPassword(password, users.password)
-            if (username == null || username == undefined || username == "") {
-                return res.json('please input username')
-            }
-            if (password == null || password == undefined || password == "") {
-                return res.json('please input password')
-            }
-            if (!users) return res.json('username not regis')
-            if (!isPassword) return res.json('your password wrong')
-
+            if(!isPassword) return res.json('wrong password')
             res.status(200).json({
                 message : 'Your are Login',
                 username : username,
@@ -97,18 +91,28 @@ class API {
     }
     static async createRoom(req,res) {
         try {
+            const room = await usergamehistories.findAll()
+            console.log(room, room.length);
             const { nameRoom } = req.body
             console.log(nameRoom);
             if (!nameRoom) return res.json('please input name room')
-            const roomId = randomString()
+            if (room == undefined || room == null || room == ""){ 
+                usergamehistories.create({ room:nameRoom, roomId:`room_${1}` })
+                return res.json({
+                    roomId:`room_${1}`,
+                    room_name: nameRoom,
+                    message: 'Succes Create Room'
+                })
+            }   
+            const roomId = room[room.length-1]
+            usergamehistories.create({ room:nameRoom, roomId:`room_${roomId.id+1}` })
             res.json({
-                roomId:`room_${roomId}`,
+                roomId:`room_${roomId.id+1}`,
                 room_name: nameRoom,
                 message: 'Succes Create Room'
             })
-            usergamehistories.create({ room:nameRoom, roomId:`room_${roomId}` })
         } catch (error) {
-            
+            res.json('Internal Server Error')  
         }
     }
     static async roomId(req,res) {
